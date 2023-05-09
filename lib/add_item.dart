@@ -26,7 +26,7 @@ class _AddItemState extends State<AddItem> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Name Form'),
+        title: Text('Add Item'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),

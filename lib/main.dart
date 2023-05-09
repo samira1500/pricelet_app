@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(homeTitle: 'Crud with Floor'),
+      home: HomePage(homeTitle: 'Pricelet App'),
     );
   }
 }

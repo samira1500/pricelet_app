@@ -46,8 +46,67 @@ class _HomePageState extends State<HomePage> {
                     return ListView.builder(
                         itemCount: snapshot.data!.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return ListTile(
-                            title: Text(snapshot.data![index].name),
+                          return Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 6.0, horizontal: 12.0),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: ListTile(
+                              leading: const CircleAvatar(
+                                backgroundColor: Colors.orange,
+                                child: Text(
+                                  'I',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              title: Text(
+                                snapshot.data![index].name,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.0,
+                                ),
+                              ),
+                              subtitle: Text(
+                                snapshot.data![index].barcode,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 14.0,
+                                ),
+                              ),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  IconButton(
+                                    icon: Icon(Icons.edit),
+                                    onPressed: () {
+                                      // Handle edit action
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.delete),
+                                    onPressed: () {
+                                      _deleteItem(snapshot.data![index].id);
+                                    },
+                                  ),
+                                ],
+                              ),
+                              onTap: () {
+                                // Handle tap on list tile
+                              },
+                            ),
                           );
                         });
                   }
@@ -62,6 +121,11 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.add),
       ),
     );
+  }
+
+  void _deleteItem(int id) {
+    widget._itemDao!.deleteById(id);
+    setState(() {});
   }
 
   _openAddItem() {
