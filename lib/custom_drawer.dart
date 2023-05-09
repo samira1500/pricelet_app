@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pricelet_app/lira_rate.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -43,7 +44,13 @@ class MyDrawer extends StatelessWidget {
             leading: Icon(Icons.currency_exchange),
             title: Text('Rate'),
             onTap: () {
-              // Handle home route
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyWebView(),
+                ),
+              );
             },
           ),
           ListTile(
