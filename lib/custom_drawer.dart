@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pricelet_app/barcode_scanner.dart';
+import 'package:pricelet_app/home_page.dart';
 import 'package:pricelet_app/lira_rate.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -8,7 +10,7 @@ class MyDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          UserAccountsDrawerHeader(
+          const UserAccountsDrawerHeader(
             accountName: Text('PRICE APP'),
             accountEmail: Text('pricelete@example.com'),
             currentAccountPicture: CircleAvatar(
@@ -20,10 +22,31 @@ class MyDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
+            leading: Icon(Icons.qr_code_scanner),
+            title: Text('BarCode Scan'),
+            onTap: () {
+              // Handle home route
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BarcodeScannerWidget(),
+                ),
+              );
+            },
+          ),
+          ListTile(
             leading: Icon(Icons.list),
             title: Text('Items'),
             onTap: () {
               // Handle home route
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(homeTitle: 'All Items'),
+                ),
+              );
             },
           ),
           ListTile(
