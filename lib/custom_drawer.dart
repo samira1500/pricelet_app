@@ -26,15 +26,22 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.list),
+            leading: Icon(Icons.category),
             title: Text('Categories'),
             onTap: () {
               // Handle home route
             },
           ),
           ListTile(
-            leading: Icon(Icons.list),
+            leading: Icon(Icons.inbox),
             title: Text('Suppliers'),
+            onTap: () {
+              // Handle home route
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.currency_exchange),
+            title: Text('Rate'),
             onTap: () {
               // Handle home route
             },
