@@ -19,8 +19,22 @@ class MyDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
+            leading: Icon(Icons.list),
+            title: Text('Items'),
+            onTap: () {
+              // Handle home route
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.list),
+            title: Text('Categories'),
+            onTap: () {
+              // Handle home route
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.list),
+            title: Text('Suppliers'),
             onTap: () {
               // Handle home route
             },
