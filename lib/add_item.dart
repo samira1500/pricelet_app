@@ -12,13 +12,13 @@ class AddItem extends StatefulWidget {
 }
 
 class _AddItemState extends State<AddItem> {
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
+  final itemNameController = TextEditingController();
+  final serialNoController = TextEditingController();
 
   @override
   void dispose() {
-    firstNameController.dispose();
-    lastNameController.dispose();
+    itemNameController.dispose();
+    serialNoController.dispose();
     super.dispose();
   }
 
@@ -34,13 +34,13 @@ class _AddItemState extends State<AddItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TextFormField(
-              controller: firstNameController,
+              controller: itemNameController,
               decoration: InputDecoration(
                 labelText: 'Item Name',
               ),
             ),
             TextFormField(
-              controller: lastNameController,
+              controller: serialNoController,
               decoration: InputDecoration(
                 labelText: 'BarCode',
               ),
@@ -50,8 +50,8 @@ class _AddItemState extends State<AddItem> {
               child: Text('Submit'),
               onPressed: () {
                 // Handle form submission
-                String firstName = firstNameController.text;
-                String lastName = lastNameController.text;
+                String firstName = itemNameController.text;
+                String lastName = serialNoController.text;
                 _save();
                 print('First Name: $firstName, Last Name: $lastName');
               },
@@ -73,8 +73,8 @@ class _AddItemState extends State<AddItem> {
 
         value.itemDao.insertItem(Item(
             id,
-            firstNameController.value.text,
-            lastNameController.value.text,
+            itemNameController.value.text,
+            serialNoController.value.text,
             DateFormat('MMMM dd, yyyy').format(DateTime.now())));
       });
     });
