@@ -5,28 +5,44 @@ import 'package:pricelet_app/entity/item_entity.dart';
 import 'package:intl/intl.dart';
 
 class AddItem extends StatefulWidget {
-  const AddItem({super.key});
+  AddItem({super.key, this.id, this.name, this.barcode});
+
+  final int? id;
+  final String? name;
+  final String? barcode;
+
+  final _itemNameController = TextEditingController();
+  final _serialNoController = TextEditingController();
 
   @override
   State<AddItem> createState() => _AddItemState();
 }
 
 class _AddItemState extends State<AddItem> {
-  final itemNameController = TextEditingController();
-  final serialNoController = TextEditingController();
+  bool idIsNull = true;
 
   @override
-  void dispose() {
-    itemNameController.dispose();
-    serialNoController.dispose();
-    super.dispose();
+  void initState() {
+    if (widget.id != null) {
+      widget._itemNameController.text = widget.name!;
+      widget._serialNoController.text = widget.barcode!;
+      idIsNull = false;
+    }
   }
 
+/*
+  @override
+  void dispose() {
+    widget._itemNameController.dispose();
+    widget._itemNameController.dispose();
+    super.dispose();
+  }
+*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Item'),
+        title: Text(idIsNull ? 'Add New Item' : 'Update Item'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -34,13 +50,13 @@ class _AddItemState extends State<AddItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TextFormField(
-              controller: itemNameController,
+              controller: widget._itemNameController,
               decoration: InputDecoration(
                 labelText: 'Item Name',
               ),
             ),
             TextFormField(
-              controller: serialNoController,
+              controller: widget._serialNoController,
               decoration: InputDecoration(
                 labelText: 'BarCode',
               ),
@@ -50,10 +66,10 @@ class _AddItemState extends State<AddItem> {
               child: Text('Submit'),
               onPressed: () {
                 // Handle form submission
-                String firstName = itemNameController.text;
-                String lastName = serialNoController.text;
-                _save();
-                print('First Name: $firstName, Last Name: $lastName');
+                if (idIsNull)
+                  _save();
+                else
+                  _saveEdit();
               },
             ),
           ],
@@ -73,11 +89,24 @@ class _AddItemState extends State<AddItem> {
 
         value.itemDao.insertItem(Item(
             id,
-            itemNameController.value.text,
-            serialNoController.value.text,
+            widget._itemNameController.value.text,
+            widget._serialNoController.value.text,
             DateFormat('MMMM dd, yyyy').format(DateTime.now())));
       });
     });
+    Navigator.pop(context);
+  }
+
+  _saveEdit() {
+    final database = $FloorAppDatabase.databaseBuilder('pricelet.db').build();
+    database.then((value) {
+      value.itemDao.updateItem(Item(
+          widget.id!,
+          widget._itemNameController.value.text,
+          widget._serialNoController.value.text,
+          DateFormat('MMMM dd, yyyy').format(DateTime.now())));
+    });
+
     Navigator.pop(context);
   }
 }

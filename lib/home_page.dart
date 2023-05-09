@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pricelet_app/add_item.dart';
+import 'package:pricelet_app/custom_drawer.dart';
 import 'package:pricelet_app/dao/item_dao.dart';
 import 'package:pricelet_app/database/database.dart';
 import 'package:pricelet_app/entity/item_entity.dart';
@@ -21,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MyDrawer(),
       appBar: AppBar(
         title: Text(widget.homeTitle),
       ),
@@ -51,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                                 vertical: 6.0, horizontal: 12.0),
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(8.0),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.grey.withOpacity(0.5),
@@ -63,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             child: ListTile(
                               leading: const CircleAvatar(
-                                backgroundColor: Colors.orange,
+                                backgroundColor: Colors.blue,
                                 child: Text(
                                   'I',
                                   style: TextStyle(
@@ -90,13 +92,24 @@ class _HomePageState extends State<HomePage> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   IconButton(
-                                    icon: Icon(Icons.edit),
+                                    icon: Icon(Icons.edit, color: Colors.blue),
                                     onPressed: () {
                                       // Handle edit action
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return AddItem(
+                                            id: snapshot.data![index].id,
+                                            name: snapshot.data![index].name,
+                                            barcode:
+                                                snapshot.data![index].barcode);
+                                      })).then((value) {
+                                        setState(() {});
+                                      });
                                     },
                                   ),
                                   IconButton(
-                                    icon: Icon(Icons.delete),
+                                    icon: Icon(Icons.delete_forever,
+                                        color: Colors.red),
                                     onPressed: () {
                                       _deleteItem(snapshot.data![index].id);
                                     },
@@ -130,7 +143,7 @@ class _HomePageState extends State<HomePage> {
 
   _openAddItem() {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return const AddItem();
+      return AddItem();
     })).then((value) {
       setState(() {});
     });
