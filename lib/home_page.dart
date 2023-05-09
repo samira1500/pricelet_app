@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pricelet_app/addItem.dart';
-import 'package:pricelet_app/dao/itemDao.dart';
+import 'package:pricelet_app/add_item.dart';
+import 'package:pricelet_app/dao/item_dao.dart';
 import 'package:pricelet_app/database/database.dart';
 import 'package:pricelet_app/entity/item_entity.dart';
 

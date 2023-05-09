@@ -1,5 +1,5 @@
 import 'package:floor/floor.dart';
-import 'package:pricelet_app/dao/itemDao.dart';
+import 'package:pricelet_app/dao/item_dao.dart';
 import 'package:pricelet_app/entity/item_entity.dart';
 
 import 'package:sqflite/sqflite.dart' as sqflite;
