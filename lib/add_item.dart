@@ -5,14 +5,16 @@ import 'package:pricelet_app/entity/item_entity.dart';
 import 'package:intl/intl.dart';
 
 class AddItem extends StatefulWidget {
-  AddItem({super.key, this.id, this.name, this.barcode});
+  AddItem({super.key, this.id, this.name, this.barcode, this.price});
 
   final int? id;
   final String? name;
   final String? barcode;
+  final String? price;
 
   final _itemNameController = TextEditingController();
   final _serialNoController = TextEditingController();
+  final _priceController = TextEditingController();
 
   @override
   State<AddItem> createState() => _AddItemState();
@@ -26,6 +28,7 @@ class _AddItemState extends State<AddItem> {
     if (widget.id != null) {
       widget._itemNameController.text = widget.name!;
       widget._serialNoController.text = widget.barcode!;
+      widget._priceController.text = widget.price ?? '';
       idIsNull = false;
     }
   }
@@ -61,6 +64,12 @@ class _AddItemState extends State<AddItem> {
                 labelText: 'BarCode',
               ),
             ),
+            TextFormField(
+              controller: widget._priceController,
+              decoration: InputDecoration(
+                labelText: 'Price',
+              ),
+            ),
             SizedBox(height: 16.0),
             ElevatedButton(
               child: Text('Submit'),
@@ -91,7 +100,8 @@ class _AddItemState extends State<AddItem> {
             id,
             widget._itemNameController.value.text,
             widget._serialNoController.value.text,
-            DateFormat('MMMM dd, yyyy').format(DateTime.now())));
+            DateFormat('MMMM dd, yyyy').format(DateTime.now()),
+            widget._priceController.value.text));
       });
     });
     Navigator.pop(context);
@@ -104,7 +114,8 @@ class _AddItemState extends State<AddItem> {
           widget.id!,
           widget._itemNameController.value.text,
           widget._serialNoController.value.text,
-          DateFormat('MMMM dd, yyyy').format(DateTime.now())));
+          DateFormat('MMMM dd, yyyy').format(DateTime.now()),
+          widget._priceController.value.text));
     });
 
     Navigator.pop(context);

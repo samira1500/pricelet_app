@@ -157,7 +157,9 @@ class _HomePageState extends State<HomePage> {
                                                     name:
                                                         _searchList[index].name,
                                                     barcode: _searchList[index]
-                                                        .barcode);
+                                                        .barcode,
+                                                    price: _searchList[index]
+                                                        .price);
                                               })).then((value) {
                                                 setState(() {});
                                               });

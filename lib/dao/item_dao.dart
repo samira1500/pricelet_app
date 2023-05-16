@@ -12,6 +12,9 @@ abstract class ItemDao {
   @Query('select * from items order by id desc')
   Stream<List<Item>> streamedData();
 
+  @Query('select * from items where barcode= :barcode')
+  Future<Item?> findItemByBarcode(String barcode);
+
   @insert
   Future<void> insertItem(Item item);
 

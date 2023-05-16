@@ -85,7 +85,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `items` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `barcode` TEXT NOT NULL, `scheduleTime` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `items` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `barcode` TEXT NOT NULL, `price` TEXT NOT NULL, `scheduleTime` TEXT NOT NULL)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -111,6 +111,7 @@ class _$ItemDao extends ItemDao {
                   'id': item.id,
                   'name': item.name,
                   'barcode': item.barcode,
+                  'price': item.price,
                   'scheduleTime': item.scheduleTime
                 },
             changeListener),
@@ -122,6 +123,7 @@ class _$ItemDao extends ItemDao {
                   'id': item.id,
                   'name': item.name,
                   'barcode': item.barcode,
+                  'price': item.price,
                   'scheduleTime': item.scheduleTime
                 },
             changeListener),
@@ -133,6 +135,7 @@ class _$ItemDao extends ItemDao {
                   'id': item.id,
                   'name': item.name,
                   'barcode': item.barcode,
+                  'price': item.price,
                   'scheduleTime': item.scheduleTime
                 },
             changeListener);
@@ -156,7 +159,8 @@ class _$ItemDao extends ItemDao {
             row['id'] as int,
             row['name'] as String,
             row['barcode'] as String,
-            row['scheduleTime'] as String));
+            row['scheduleTime'] as String,
+            row['price'] as String));
   }
 
   @override
@@ -166,7 +170,8 @@ class _$ItemDao extends ItemDao {
             row['id'] as int,
             row['name'] as String,
             row['barcode'] as String,
-            row['scheduleTime'] as String));
+            row['scheduleTime'] as String,
+            row['price'] as String));
   }
 
   @override
@@ -176,9 +181,22 @@ class _$ItemDao extends ItemDao {
             row['id'] as int,
             row['name'] as String,
             row['barcode'] as String,
-            row['scheduleTime'] as String),
+            row['scheduleTime'] as String,
+            row['price'] as String),
         queryableName: 'items',
         isView: false);
+  }
+
+  @override
+  Future<Item?> findItemByBarcode(String barcode) async {
+    return _queryAdapter.query('select * from items where barcode= ?1',
+        mapper: (Map<String, Object?> row) => Item(
+            row['id'] as int,
+            row['name'] as String,
+            row['barcode'] as String,
+            row['scheduleTime'] as String,
+            row['price'] as String),
+        arguments: [barcode]);
   }
 
   @override

@@ -9,10 +9,12 @@ class Item {
 
   final String barcode;
 
+  final String price;
+
   final String scheduleTime;
 
   @ignore
   bool isSelect = false;
 
-  Item(this.id, this.name, this.barcode, this.scheduleTime);
+  Item(this.id, this.name, this.barcode, this.scheduleTime, this.price);
 }
