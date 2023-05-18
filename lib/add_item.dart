@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pricelet_app/database/database.dart';
 import 'package:pricelet_app/entity/item_entity.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class AddItem extends StatefulWidget {
   AddItem({super.key, this.id, this.name, this.barcode, this.price});
@@ -58,11 +59,23 @@ class _AddItemState extends State<AddItem> {
                 labelText: 'Item Name',
               ),
             ),
-            TextFormField(
-              controller: widget._serialNoController,
-              decoration: InputDecoration(
-                labelText: 'BarCode',
-              ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: widget._serialNoController,
+                    decoration: InputDecoration(
+                      labelText: 'BarCode',
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10),
+                IconButton(
+                    icon: const Icon(Icons.qr_code_scanner, color: Colors.blue),
+                    onPressed: () {
+                      _scanBarcode();
+                    }),
+              ],
             ),
             TextFormField(
               controller: widget._priceController,
@@ -119,5 +132,18 @@ class _AddItemState extends State<AddItem> {
     });
 
     Navigator.pop(context);
+  }
+
+  Future<void> _scanBarcode() async {
+    String barcode = await FlutterBarcodeScanner.scanBarcode(
+      '#ff6666', // Color of the scanner line
+      'Cancel', // Text for the cancel button
+      true, // Use the flash if available
+      ScanMode.BARCODE, // Scan mode (Barcode, QRCode, or both)
+    );
+
+    setState(() {
+      widget._serialNoController.text = barcode;
+    });
   }
 }
