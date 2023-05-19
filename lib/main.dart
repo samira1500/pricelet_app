@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pricelet_app/app_routes.dart';
 import 'package:pricelet_app/home_page.dart';
 
 void main() {
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(homeTitle: 'Pricelet App'),
+      routes: AppRoutes.routes,
     );
   }
 }

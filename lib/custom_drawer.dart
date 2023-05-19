@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pricelet_app/barcode_scanner.dart';
 import 'package:pricelet_app/home_page.dart';
 import 'package:pricelet_app/lira_rate.dart';
+import 'package:pricelet_app/shopping_cart.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -11,26 +12,22 @@ class MyDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           const UserAccountsDrawerHeader(
-            accountName: Text('PRICE APP'),
-            accountEmail: Text('pricelete@example.com'),
+            accountName: Text('Market APP'),
+            accountEmail: Text('mkh95@gamil.com'),
             currentAccountPicture: CircleAvatar(
+              backgroundImage: AssetImage('assets/images/3135715.png'),
               backgroundColor: Colors.white,
-              child: Text(
-                'PA',
-                style: TextStyle(fontSize: 24.0),
-              ),
             ),
           ),
           ListTile(
-            leading: Icon(Icons.qr_code_scanner),
-            title: Text('BarCode Scan'),
+            leading: Icon(Icons.shopify_sharp),
+            title: Text('Shopping Cart'),
             onTap: () {
-              // Handle home route
               Navigator.pop(context);
-              Navigator.push(
+              Navigator.push<void>(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => BarcodeScannerWidget(),
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => const ShoppingCard(),
                 ),
               );
             },
@@ -50,22 +47,22 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.category),
-            title: Text('Categories'),
+            leading: Icon(Icons.qr_code_scanner),
+            title: Text('Check Price'),
             onTap: () {
               // Handle home route
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.inbox),
-            title: Text('Suppliers'),
-            onTap: () {
-              // Handle home route
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BarcodeScannerWidget(),
+                ),
+              );
             },
           ),
           ListTile(
             leading: Icon(Icons.currency_exchange),
-            title: Text('Rate'),
+            title: Text('Edit Rate'),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
@@ -77,10 +74,17 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
+            leading: Icon(Icons.category),
+            title: Text('Categories'),
             onTap: () {
-              // Handle settings route
+              // Handle home route
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.inbox),
+            title: Text('Suppliers'),
+            onTap: () {
+              // Handle home route
             },
           ),
           Divider(),
